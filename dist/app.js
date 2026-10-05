@@ -158,6 +158,14 @@ function setupMoreDemos(card,id,$,$$,on){
 renderCollections();
 // One shared modal uses the browser's built-in focus containment and Escape behavior.
 const dialog=document.querySelector('#delete-dialog');
+// Keep Tab inside the dialog even in browsers that otherwise move to browser chrome.
+dialog.addEventListener('keydown',event=>{
+ if(event.key!=='Tab')return;
+ const controls=[...dialog.querySelectorAll('button:not(:disabled)')];
+ const first=controls[0],last=controls[controls.length-1];
+ if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+});
 document.querySelector('#cancel-delete').addEventListener('click',()=>dialog.close('cancel'));
 document.querySelector('.close-dialog').addEventListener('click',()=>dialog.close('cancel'));
 document.querySelector('#confirm-delete').addEventListener('click',()=>{
