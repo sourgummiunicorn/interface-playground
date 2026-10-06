@@ -1,6 +1,6 @@
 # Interface Terms Cheat Sheet
 
-A dependency-free, interactive learning lab for beginning web design, programming, and AI students. Its 28 terms are taught through four different environments: an annotated working page, a disclosure workbench, an input studio, and a results console. Every concept includes a definition, purpose, rule, experiment, live feedback, and independent reset.
+A dependency-free, interactive learning lab for beginning web design, programming, and AI students. Its 29 terms are taught through four different environments: an annotated working page, a disclosure workbench, an input studio, and a results console. Every concept includes a definition, purpose, rule, experiment, live feedback, and independent reset.
 
 ## Open
 
