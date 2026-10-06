@@ -1,6 +1,6 @@
 # Interface Terms Cheat Sheet
 
-A dependency-free, interactive reference for beginning web design, programming, and AI students. The four collections contain 28 term cards, each with a definition, purpose, rules, working demo, behavior explanation, and independent reset.
+A dependency-free, interactive learning lab for beginning web design, programming, and AI students. Its 28 terms are taught through four different environments: an annotated working page, a disclosure workbench, an input studio, and a results console. Every concept includes a definition, purpose, rule, experiment, live feedback, and independent reset.
 
 ## Open
 
@@ -9,8 +9,8 @@ Open `dist/index.html` directly in a modern browser. All assets are local, and n
 ## Edit
 
 - `dist/index.html`: page shell, introduction, and native confirmation dialog.
-- `dist/styles.css`: shared visual tokens, reusable demo styles, and responsive layouts.
-- `dist/app.js`: term content, reusable card rendering, and isolated demo interactions.
+- `dist/styles.css`: the cobalt design system, four lab compositions, and responsive layouts.
+- `dist/app.js`: term content, concept-specific teaching layouts, and isolated demo interactions.
 
 The page uses native form controls, `<details>`, and `<dialog>`. Tabs support arrow keys, Home, and End. Autocomplete supports arrows, Enter, and Escape. Menus and the modal support Escape. Reduced motion is respected. Form values are not transmitted or saved; uploads, deletion, and settings are simulations.
 

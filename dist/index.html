@@ -1,21 +1,39 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Interface Terms Cheat Sheet</title>
-<meta name="description" content="Learn 28 common interface terms by trying real examples. A friendly, interactive playground for students of web design, programming, and AI.">
-<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script src="app.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interface Terms Cheat Sheet</title>
+  <meta name="description" content="Click it. Get it. Explore 28 interface terms in a hands-on design lab: page anatomy, disclosure experiments, input controls, and live feedback.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
-<body>
-<a class="skip-link" href="#main">Skip to the examples</a>
-<header class="site-header"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">ui</span> Interface fieldnotes<span class="edition">THE INTERACTIVE EDITION</span></a><a class="header-link" href="#navigation">Explore the terms</a></header>
-<div class="page" id="top">
-<aside class="section-nav" aria-label="Page guide"><div class="eyebrow">YOUR FIELD GUIDE</div><nav aria-label="Sections"><a href="#navigation" class="active"><span>01</span>Navigation &<br>page structure</a><a href="#content"><span>02</span>Content &<br>disclosure</a><a href="#input"><span>03</span>Actions & input</a><a href="#feedback"><span>04</span>Results, feedback<br>& states</a></nav><div class="sidebar-note"><span aria-hidden="true">⌘</span><strong>Learn by doing.</strong><p>Click around. Try things.<br>Every example is a safe<br>space to experiment.</p></div><div class="guide-meta">28 terms · 4 collections</div></aside>
-<main id="main">
-<section class="intro"><div class="eyebrow"><span class="tiny-square"></span> A LITTLE VOCABULARY. A LOT OF POSSIBILITY.</div><h1>Interface Terms<br><span>Cheat Sheet</span><span class="title-period">.</span></h1><p class="intro-copy">Learn the names of common interface elements<br class="desktop-break"> by trying them yourself.</p><div class="question-strip"><strong>Ask three questions:</strong><div><span>01</span> What is it called?</div><div><span>02</span> What does it help users do?</div><div><span>03</span> What rules make it work?</div></div></section>
-<div id="collections"></div>
-<footer class="page-footer"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">ui</span> Keep noticing interfaces.</a><p>Now you have the words for what you see.</p><a href="#top">Back to top</a></footer>
-</main></div>
-<div class="toast" role="status" id="toast" hidden>✓ Saved successfully.</div>
-<dialog id="delete-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><button class="close-dialog" aria-label="Close dialog">×</button><div class="dialog-symbol" aria-hidden="true">×</div><h2 id="dialog-title">Delete this item?</h2><p id="dialog-description">This removes the sample item from this demo. You can restore it with Reset.</p><div class="dialog-actions"><button id="cancel-delete" autofocus>Cancel</button><button class="danger" id="confirm-delete">Delete</button></div></dialog>
-</body></html>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to the examples</a>
+  <header class="site-header">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">ui<span>↗</span></span>interface<span class="brand-light">/ lab</span></a>
+    <span class="edition">LESS READING. MORE TRYING.</span>
+    <a class="header-link" href="#navigation">Jump into the lab</a>
+  </header>
+  <section class="intro" aria-labelledby="page-title">
+    <div class="intro-main"><p class="eyebrow">A FIELD GUIDE FOR CURIOUS MINDS <span>28 TERMS / 4 LABS</span></p><h1 id="page-title">Interface Terms<br><span>Cheat Sheet</span><span class="title-mark" aria-hidden="true">✳</span></h1></div>
+    <div class="intro-aside"><p class="intro-hook">Click it.<br>Get it.</p><p>Learn the names of common interface elements by trying them yourself.</p><span class="intro-note">Start anywhere. Every demo resets.</span></div>
+    <div class="question-strip"><strong>Ask three questions:</strong><span>What is it called?</span><span>What does it help users do?</span><span>What rules make it work?</span></div>
+  </section>
+  <div class="section-nav"><nav aria-label="Sections">
+    <a href="#navigation" class="active" aria-current="location"><span class="nav-number">01</span><span>Find your way<small>Navigation & structure</small></span><span class="nav-icon" aria-hidden="true">⌘</span></a>
+    <a href="#content"><span class="nav-number">02</span><span>Reveal a little<small>Content & disclosure</small></span><span class="nav-icon" aria-hidden="true">⊞</span></a>
+    <a href="#input"><span class="nav-number">03</span><span>Make a move<small>Actions & input</small></span><span class="nav-icon" aria-hidden="true">↔</span></a>
+    <a href="#feedback"><span class="nav-number">04</span><span>See what happens<small>Results & states</small></span><span class="nav-icon" aria-hidden="true">◎</span></a>
+  </nav></div>
+  <main id="main"><div id="collections"></div></main>
+  <footer class="page-footer"><div><p class="eyebrow">YOU’LL START SEEING THESE EVERYWHERE.</p><strong>Same interfaces.<br>New eyes.</strong></div><div><p>Notice something familiar in your favorite app?<br>Now you know what to call it.</p><a href="#top">Back to the beginning</a></div><span class="footer-mark" aria-hidden="true">✳</span></footer>
+  <div class="toast" role="status" id="toast" hidden><span aria-hidden="true">✓</span> Saved successfully.</div>
+  <dialog id="delete-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+    <button class="close-dialog" aria-label="Close dialog">×</button><div class="dialog-symbol" aria-hidden="true">!</div>
+    <h2 id="dialog-title">Delete this item?</h2><p id="dialog-description">This removes the sample item from this demo. You can restore it with Reset.</p>
+    <div class="dialog-actions"><button id="cancel-delete" autofocus>Cancel</button><button class="danger" id="confirm-delete">Delete</button></div>
+  </dialog>
+</body>
+</html>

@@ -1,4 +1,4 @@
-// Every term uses the same small card template. Demo state stays inside its card.
+// Shared demo behaviors, presented through four different learning environments.
 const collections = [
  {id:'navigation', title:'Navigation & Page Structure', description:'Help people find their way and understand where things belong.', terms:[
  ['header','Header','The top area of a page, with branding and key controls.','Helps users recognize the site and reach common tools. Keep the layout consistent across pages.','Try the search or account button. Clear the field or close the account panel to return.',`<header class="mini-header"><div class="mini-brand"><span>s</span> studio</div><input aria-label="Search the header demo" placeholder="Search…"><button data-action="account" aria-expanded="false">Account</button></header><div class="mini-panel account-panel" hidden>Alex · Student account<br><button data-action="account-close">Close account</button></div><p class="small-note header-result">Branding, search, and account. One familiar place.</p>`],
@@ -11,25 +11,117 @@ const collections = [
  ]}
 ];
 
+// The teaching format changes with the concept; controls keep their existing IDs.
+const experiments = {
+ header: 'Open the account panel. What stays in place?',
+ 'navigation-bar': 'Visit Events. Notice which link looks different.',
+ hamburger: 'Open the menu. Then close it with Escape.',
+ drawer: 'Open the drawer. Which part stays put?',
+ breadcrumbs: 'Follow Furniture to move one level up.',
+ hero: 'Try the big action in this miniature introduction.',
+ footer: 'Find the privacy information at the bottom.',
+ card: 'Open this event for the details behind its preview.',
+ accordion: 'Reveal an answer. Collapse it again.',
+ tabs: 'Switch to Reviews. What disappears?',
+ carousel: 'Move through three ideas, one panel at a time.',
+ modal: 'Try Delete item. You can still change your mind.',
+ popover: 'Open the extra options. Click outside to close them.',
+ tooltip: 'Hover over the i, or reach it with Tab.',
+ icon: 'One heart is a symbol. The other saves something.',
+ 'button-link': 'Try both. One changes this view; one takes you elsewhere.',
+ cta: 'Which action catches your eye first? Try it.',
+ text: 'A name needs one line. An idea might need a few.',
+ dropdown: 'Run a command, then change a setting.',
+ choices: 'Pick two interests. Now try picking two delivery methods.',
+ toggle: 'Flip the switch. Slide the volume. Watch the values.',
+ search: 'Type “Lon”, then choose a matching destination.',
+ filter: 'Find the cheapest event under $150.',
+ pagination: 'Jump to page 3. Can you still go Next?',
+ badge: 'Read a message. Watch the little number change.',
+ toast: 'Save, then wait. Which message stays?',
+ loading: 'Start the upload. Watch waiting turn into progress.',
+ states: 'Try the next step in each state. Notice what becomes possible.'
+};
+
+function termMarkup(id, variant = '') {
+ const group = collections.find(group => group.terms.some(term => term[0] === id));
+ const term = group.terms.find(term => term[0] === id);
+ const [key, name, definition, guidance, , demo] = term;
+ const split = guidance.indexOf('. ');
+ const purpose = split < 0 ? guidance : guidance.slice(0, split + 1);
+ const rule = split < 0 ? '' : guidance.slice(split + 2);
+ const index = String(group.terms.indexOf(term) + 1).padStart(2, '0');
+ return `<article class="term-card ${variant}" id="term-${key}" aria-labelledby="title-${key}">
+  <div class="term-copy"><div class="term-heading"><span class="term-index">${index}</span><h3 id="title-${key}">${name}</h3></div><p class="definition">${definition}</p><p class="purpose">${purpose}</p>${rule ? `<p class="rule"><strong>The rule</strong> ${rule}</p>` : ''}</div>
+  <div class="experiment"><div class="experiment-head"><p class="try-prompt"><span>TRY</span> ${experiments[key]}</p><button class="reset" aria-label="Reset ${name} demo"><span aria-hidden="true">↺</span> Reset</button></div><div class="demo">${demo}</div><p class="behavior" aria-live="polite" aria-atomic="true" hidden></p></div>
+ </article>`;
+}
+
+function sectionHead(id, number, title, invitation) {
+ const collection = collections.find(group => group.id === id);
+ return `<div class="collection-heading"><span class="collection-number">${number}</span><div><p class="eyebrow">${collection.title}</p><h2 id="${id}-title">${title}</h2></div><p class="section-invitation">${invitation}</p></div>`;
+}
+
 function renderCollections() {
- document.querySelector('#collections').innerHTML = collections.map((group, groupIndex) => `<section class="collection" id="${group.id}" aria-labelledby="${group.id}-title"><div class="collection-heading"><span class="collection-number">0${groupIndex+1}</span><h2 id="${group.id}-title">${group.title}</h2><span class="term-count">${group.terms.length} terms</span></div><p class="collection-description">${group.description}</p><div class="cards">${group.terms.map((term,index)=>`<article class="term-card ${term[0]==='states'?'wide':''}" id="term-${term[0]}" aria-labelledby="title-${term[0]}"><div class="card-copy"><div class="card-top"><h3 id="title-${term[0]}">${term[1]}</h3><span class="term-index">0${groupIndex+1} / 0${index+1}</span></div><p class="definition">${term[2]}</p></div><div class="demo-wrap"><div class="demo-label"><span>TRY IT YOURSELF</span><button class="reset" aria-label="Reset ${term[1]} demo">↻ Reset</button></div><div class="demo">${term[5]}</div></div><p class="rule"><strong>Why & how:</strong> ${term[3]}</p><p class="behavior" aria-live="polite"><strong>Try this:</strong> ${term[4]}</p></article>`).join('')}</div></section>`).join('');
+ const t = termMarkup;
+ document.querySelector('#collections').innerHTML = `
+ <section class="collection anatomy-lab" id="navigation" aria-labelledby="navigation-title">
+  ${sectionHead('navigation', '01', 'Find your way.', 'Take apart a page. See what each piece does.')}
+  <div class="browser-lab"><div class="browser-bar"><span class="window-dots" aria-hidden="true">● ● ●</span><span>studio.example / a page, unpacked</span><span class="live-label">LIVE DEMO</span></div>
+   <div class="anatomy-guide"><span>THE PARTS</span><span>A WEBSITE YOU CAN ACTUALLY TRY</span></div>
+   ${t('header','anatomy-row')}${t('navigation-bar','anatomy-row')}${t('breadcrumbs','anatomy-row')}${t('hero','anatomy-row hero-row')}${t('footer','anatomy-row')}
+  </div>
+  <div class="subsection-title"><h3>When space gets tight.</h3><p>Two ways to keep navigation within reach.</p></div>
+  <div class="space-lab">${t('hamburger','menu-experiment')}${t('drawer','drawer-experiment')}</div>
+ </section>
+ <section class="collection disclosure-lab" id="content" aria-labelledby="content-title">
+  ${sectionHead('content', '02', 'Reveal a little.', 'Information doesn’t have to arrive all at once.')}
+  <div class="discovery-pair">${t('card','event-experiment')}${t('carousel','carousel-experiment')}</div>
+  <div class="disclosure-workbench">${t('accordion','wide-experiment')}${t('tabs','wide-experiment')}</div>
+  <div class="subsection-title"><h3>A little context. Or your full attention.</h3><p>Compare three ways to show something extra.</p></div>
+  <div class="overlay-lab">${t('tooltip','overlay-small')}${t('popover','overlay-medium')}${t('modal','overlay-large')}</div>
+ </section>
+ <section class="collection input-lab" id="input" aria-labelledby="input-title">
+  ${sectionHead('input', '03', 'Make a move.', 'Press, choose, type. The interface listens.')}
+  <div class="action-comparison"><div class="workbench-title"><span class="eyebrow">SPOT THE DIFFERENCE</span><h3>Looks similar.<br>Works differently.</h3></div><div>${t('icon','comparison-experiment')}${t('button-link','comparison-experiment')}</div></div>
+  ${t('cta','cta-experiment')}
+  <div class="subsection-title"><h3>Make it yours.</h3><p>Different answers call for different controls.</p></div>
+  <div class="form-studio">${t('text','writing-experiment')}${t('choices','choice-experiment')}</div>
+  <div class="settings-studio">${t('dropdown','setting-experiment')}${t('toggle','setting-experiment')}</div>
+ </section>
+ <section class="collection feedback-lab" id="feedback" aria-labelledby="feedback-title">
+  ${sectionHead('feedback', '04', 'See what happens.', 'Good interfaces always keep you in the loop.')}
+  <div class="results-studio"><div class="workbench-title"><span class="eyebrow">FROM A LOT TO JUST RIGHT</span><h3>Find your thing.</h3><p>Search for something you know.<br>Filter what’s relevant. Sort what’s left.</p></div><div class="results-tools">${t('search','search-experiment')}${t('filter','filter-experiment')}</div></div>
+  ${t('pagination','pagination-experiment')}
+  <div class="subsection-title"><h3>Message received.</h3><p>A count, a confirmation, a little reassurance.</p></div>
+  <div class="feedback-console"><div>${t('badge','badge-experiment')}${t('toast','toast-experiment')}</div>${t('loading','loading-experiment')}</div>
+  ${t('states','states-experiment')}
+ </section>`;
+
  document.querySelectorAll('.term-card').forEach(card => {
   const original = card.querySelector('.demo').innerHTML;
-  const behavior = card.querySelector('.behavior').innerHTML;
-  card.querySelector('.reset').addEventListener('click',()=>{
-   if(card.cleanup) card.cleanup();
-   card.querySelector('.demo').innerHTML=original;
-   card.querySelector('.behavior').innerHTML=behavior;
+  card.querySelector('.reset').addEventListener('click', () => {
+   if (card.cleanup) card.cleanup();
+   card.querySelector('.demo').innerHTML = original;
+   const feedback = card.querySelector('.behavior');
+   feedback.replaceChildren();
+   feedback.hidden = true;
    setupDemo(card);
   });
   setupDemo(card);
  });
 }
+
+// Announce the result once, without repeating the instructions after every action.
 function report(card, did, changed, back) {
- const area=card.querySelector('.behavior'); area.replaceChildren();
- for(const [label, text] of [['You did: ',did],['What changed: ',changed],['How to return: ',back]]) {
-  const strong=document.createElement('strong');strong.textContent=label;area.append(strong,document.createTextNode(text+' '));
- }
+ const area = card.querySelector('.behavior');
+ area.hidden = false;
+ area.replaceChildren();
+ const result = document.createElement('strong');
+ result.textContent = changed;
+ const returnHint = document.createElement('span');
+ returnHint.textContent = back;
+ area.append(result, returnHint);
 }
 function setupDemo(card) {
  const id=card.id.replace('term-',''), $=s=>card.querySelector(s), $$=s=>[...card.querySelectorAll(s)];
@@ -38,7 +130,7 @@ function setupDemo(card) {
   const toggle=(open)=>{$('.account-panel').hidden=!open;$('[data-action=account]').setAttribute('aria-expanded',open);report(card,open?'Opened Account.':'Closed Account.',open?'Account details are visible.':'Account details are hidden.','Use the Account button again.');};
   on('[data-action=account]','click',()=>toggle($('.account-panel').hidden));
   on('[data-action=account-close]','click',()=>{toggle(false);$('[data-action=account]').focus();});
-  on('input','input',e=>{$('.header-result').textContent=e.target.value?`Searching the sample site for “${e.target.value}”.`:'Branding, search, and account. One familiar place.';});
+  on('input','input',e=>{$('.header-result').textContent=e.target.value?`Searching the sample site for “${e.target.value}”.`:'Branding, search, and account. One familiar place.';report(card,'Typed in search.','The header shows your search query.','Clear the field or reset.');});
  }
  if(id==='navigation-bar') $$('.demo-nav a').forEach(link=>link.addEventListener('click',e=>{
   e.preventDefault();$$('.demo-nav a').forEach(a=>a.removeAttribute('aria-current'));link.setAttribute('aria-current','page');
@@ -173,7 +265,26 @@ document.querySelector('#confirm-delete').addEventListener('click',()=>{
 });
 dialog.addEventListener('close',()=>{const card=document.querySelector('#term-modal');const deleted=dialog.returnValue==='deleted';report(card,deleted?'Confirmed Delete.':'Closed the dialog. ',deleted?'The sample item was deleted.':'The item is still here.','Reset to restore the demo.');if(deleted)card.querySelector('.reset').focus();});
 dialog.addEventListener('cancel',()=>{dialog.returnValue='cancel';});
-// The guide follows the section nearest the top as the student scrolls.
-const sectionLinks=[...document.querySelectorAll('.section-nav nav a')];
-const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)sectionLinks.forEach(a=>{const current=a.hash==='#'+entry.target.id;a.classList.toggle('active',current);if(current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}},{rootMargin:'-5% 0px -70% 0px',threshold:0});
-document.querySelectorAll('.collection').forEach(section=>observer.observe(section));
+// Scroll positions, not entry ordering, determine the current lab.
+const sectionLinks = [...document.querySelectorAll('.section-nav nav a')];
+const sections = [...document.querySelectorAll('.collection')];
+let scrollPending = false;
+function updateSectionGuide() {
+ const offset = document.querySelector('.section-nav').getBoundingClientRect().height + 70;
+ let current = sections[0].id;
+ for (const section of sections) {
+  if (section.getBoundingClientRect().top <= offset) current = section.id;
+ }
+ sectionLinks.forEach(link => {
+  const active = link.hash === '#' + current;
+  link.classList.toggle('active', active);
+  if (active) link.setAttribute('aria-current', 'location');
+  else link.removeAttribute('aria-current');
+ });
+ scrollPending = false;
+}
+window.addEventListener('scroll', () => {
+ if (!scrollPending) { scrollPending = true; requestAnimationFrame(updateSectionGuide); }
+}, { passive: true });
+window.addEventListener('resize', updateSectionGuide);
+updateSectionGuide();
